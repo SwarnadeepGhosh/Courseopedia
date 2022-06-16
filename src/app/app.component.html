@@ -1,2 +1,33 @@
-<h2>Hello there</h2>
-<router-outlet></router-outlet>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" routerLink="/"><i class="fa fa-book"></i> CourseAPI Fullstack</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" routerLink="/topics">All Topics <span class="sr-only">(current)</span></a>
+        </li>
+        <!-- <li class="nav-item">
+          <a class="nav-link" routerLink="/">Link</a>
+        </li> -->
+        <form class="form-inline my-2 my-lg-0">
+          <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Add Topic</button>
+        </form>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search Item..." aria-label="Search">
+      </form>
+    </div>
+</nav>
+
+<div class="my-3">
+    <router-outlet></router-outlet>
+</div>
+
+<footer class="footer text-light">
+  <div class="footer-container align-middle text-center">
+      <i>Made with <i class="fa fa-heart"></i> by <a class="text-light" href="https://swarnadeepghosh.github.io/">Swarnadeep</a></i>
+  </div>
+</footer>
