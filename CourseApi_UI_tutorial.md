@@ -405,6 +405,10 @@ export interface Topic{
 
 
 
+**Snapshot after adding Header, Footer and Get all Topics**
+
+<img src="images/snapshot-1.png" style="zoom:67%;" />
+
 
 
 
@@ -540,7 +544,11 @@ export interface Topic{
 </div>
 ```
 
+**Snapshot of Add Topic Modal**
 
+<img src="images/addTopic.png" alt="addTopic" style="zoom:67%;" />
+
+<img src="images/afterAddTopic.png" alt="afterAddTopic" style="zoom:67%;" />
 
 
 
@@ -599,7 +607,11 @@ public onupdateTopic(topic: Topic): void {
 </div>
 ```
 
+**Snapshot of Update Topic Modal**
 
+<img src="images/updateTopic.png" alt="updateTopic" style="zoom:67%;" />
+
+<img src="images/afterUpdateTopic.png" alt="afterUpdateTopic" style="zoom:67%;" />
 
 
 
@@ -645,7 +657,11 @@ public onDeleteTopic(topicId: string): void {
 </div>
 ```
 
+**Snapshot of Delete Topic Modal**
 
+<img src="images/deleteTopic.png" alt="deleteTopic" style="zoom:67%;" />
+
+<img src="images/afterDeleteTopic.png" alt="afterDeleteTopic" style="zoom:67%;" />
 
 
 
