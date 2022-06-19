@@ -49,6 +49,43 @@ Configure `angular.json` to activate bootstrap and jquery
 
 
 
+### Backend Cors Config
+
+***application.properties***
+
+```proper
+frontendURL=http://localhost:4200
+# frontendURL=
+```
+
+**`CourseAPI-Spring-Starter\src\main\java\com\swarna\courseapi\config\CorsConfig.java`**
+
+```java
+package com.swarna.courseapi.config;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+@Configuration
+public class CorsConfig implements WebMvcConfigurer{
+
+    @Value("${frontendURL}")
+	private String frontendURL;
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        // WebMvcConfigurer.super.addCorsMappings(registry);
+        registry.addMapping("/**").allowedOrigins(frontendURL)
+        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS");
+    }
+}
+```
+
+
+
+
+
 ### Setting up Environments
 
 ***environment.ts***
@@ -183,9 +220,6 @@ export interface Topic{
         <li class="nav-item active">
           <a class="nav-link" routerLink="/topics">All Topics <span class="sr-only">(current)</span></a>
         </li>
-        <form class="form-inline my-2 my-lg-0">
-          <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Add Topic</button>
-        </form>
       </ul>
       <form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" type="search" placeholder="Search Item..." aria-label="Search">
@@ -208,7 +242,7 @@ export interface Topic{
 
 ```css
 .footer{
-    position: absolute;
+    position: fixed;
     bottom: 0;
     width: 100%;
     height: 40px;
@@ -223,17 +257,39 @@ export interface Topic{
 
 
 
-### Topic Component
+### Topic Comp- GET all Topics
 
 - Generate command : `ng g c components/Topic`
 
 - Open [Bootdey - bs4 contact cards](https://www.bootdey.com/snippets/view/bs4-contact-cards) and copy HTML and CSS in appropriate place.
 
-- ***topic.component.html*** - Copy HTML from Bootdey to here.
+- app-***routing.module.ts***
+
+  ```typescript
+  const routes: Routes = [
+    { path: '', redirectTo: '/topics', pathMatch: 'full' },
+    { path: 'topics', component: TopicComponent },
+    { path: '**', component: ErrorComponent },
+  ];
+  ```
+
+  
+
+- ***topic.component.html*** - Copy HTML from Bootdey to here, and added for loop, so that 
 
   ```html
   <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"> -->
   <div class="container">
+      
+      <div class="row">
+          <div class="col-md-8 my-3 text-center">
+              <h2>All Topics</h2>
+          </div>
+          <div class="col-md-4 my-3 text-center">
+              <a class="btn mx-2 btn-primary" data-placement="top" data-original-title="Add"> Add Topic <i class="fa fa-plus"></i> </a>
+          </div>
+      </div>
+      
       <div class="row">
           <div *ngFor="let topic of topics" class="col-md-6 col-xl-3">
               <div class="card m-b-30">
@@ -264,6 +320,14 @@ export interface Topic{
               </div>
           </div>
   
+      </div>
+  
+      <!-- Notification for NO item -->
+      <div *ngIf="topics?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+          <div class="alert alert-info" role="alert">
+              <h4 class="alert-heading">NO TOPICS !!</h4>
+              <p>No Topics were found.</p>
+          </div>
       </div>
   </div>
   ```
@@ -339,4 +403,249 @@ export interface Topic{
   }
   ```
 
-  
+
+
+
+
+
+### Modal Addition in Topic
+
+- **index.html** - Popper js will be required for Modals 
+
+    ```html
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    ```
+
+- ***topic.component.ts*** - `onOpenModal()` will be called for each Add/ Update/ Delete operation and this will decide which Modal to choose as per `data-target`.
+
+    ```typescript
+    public updateTopic: Topic;
+    public deleteTopic: Topic;
+    
+    public onOpenModal(topic: Topic, mode: string): void {
+        const container = document.getElementById('main-container');
+    
+    // Basically we will create below button through JavaScript
+    //<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Launch modal</button>
+    const button = document.createElement('button');
+    button.type = 'button'; // To change default button type from Submit.
+    button.style.display = 'none'; // Hide the button in UI, we will use already created button for Add / delete / update
+    button.setAttribute('data-toggle', 'modal');
+    
+    // Setting data Target as per mode
+    if (mode === 'add') {
+        button.setAttribute('data-target', '#addTopicModal');
+        console.log('Add called');
+    }
+    if (mode === 'update') {
+        this.updateTopic = topic;
+        button.setAttribute('data-target', '#updateTopicModal');
+        console.log('Update called');
+    }
+    if (mode === 'delete') {
+        this.deleteTopic = topic;
+        button.setAttribute('data-target', '#deleteTopicModal');
+        console.log('delete called');
+    }
+    
+    container?.appendChild(button); // Adding the button to the view, so that it can do its job
+    button.click();
+    }
+    ```
+
+- ***topic.component.html*** - calling `onOpenModal()`, which will decide which Modal to choose as per `data-target`.
+
+    ```html
+    <!-- Buttons from where onOpenModal() will be called-->
+    <a (click)="onOpenModal(null, 'add')" class="btn mx-2 btn-primary" data-placement="top" data-original-title="Add"> Add Topic <i class="fa fa-plus"></i> </a> ... 
+    <a (click)="onOpenModal(topic, 'update')" class="btn mx-2 btn-primary tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a> ...
+    <a (click)="onOpenModal(topic, 'delete')" class="btn btn-danger tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a> ...
+    
+    <!-- Modals -->
+    <div class="modal fade" id="addTopicModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true"> ... </div>
+    <div class="modal fade" id="updateTopicModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true"> ... </div>
+    <div class="modal fade" id="deleteTopicModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true"> ... </div>
+    ```
+
+- **app.module.ts** - Adding `FormsModule` for Modals
+
+  ```typescript
+  import { FormsModule } from '@angular/forms';
+  imports: [
+  	...
+      FormsModule
+  ],
+  ```
+
+
+
+
+
+### ADD Modal for Topic
+
+***topic.component.ts***
+
+```typescript
+  public onAddTopic(addForm: NgForm): void {
+    document.getElementById('add-topic-form').click(); // This will close add modal after submit
+    this.topicService.addTopic(addForm.value).subscribe(
+      (response: Topic) => {
+        console.log(response);
+        this.getTopics();
+        addForm.reset();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+        addForm.reset();
+      }
+    );
+  }
+```
+
+***topic.component.html***
+
+```html
+<!-- ADD Item Modal-->
+<div class="modal fade" id="addTopicModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel"aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addModalLabel">Add New Topic</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form #addForm="ngForm" (ngSubmit)="onAddTopic(addForm)">
+                    <div class="form-group">
+                        <label for="id">Topic ID</label>
+                        <input type="text" ngModel name="id" class="form-control" id="id" placeholder="Enter Topic ID..." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Topic Name</label>
+                        <input type="text" ngModel name="name" class="form-control" id="name" placeholder="Enter Topic name..." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Topic Description</label>
+                        <input type="text" ngModel name="description" class="form-control" id="description" placeholder="Enter Topic description..." required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="add-topic-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+```
+
+
+
+
+
+### UPDATE Modal for Topic
+
+***topic.component.ts***
+
+```typescript
+public onupdateTopic(topic: Topic): void {
+    // document.getElementById('update-topic-form').click();
+    this.topicService.updateTopic(topic, topic.id).subscribe(
+        (response: Topic) => {
+            console.log(response);
+            this.getTopics();
+        },
+        (error: HttpErrorResponse) => {
+            alert(error.message);
+        }
+    );
+}
+```
+
+***topic.component.html***
+
+```html
+<!-- UPDATE Item Modal-->
+<div class="modal fade" id="updateTopicModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateModalLabel">Update Topic</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form #updateForm="ngForm">
+                    <!-- Making Id hidden, so that users not able to update the id -->
+                    <input type="hidden" ngModel="{{updateTopic?.id}}" name="id" class="form-control" id="id" placeholder="Enter Topic ID..." required>
+                    <div class="form-group">
+                        <label for="name">Topic Name</label>
+                        <input type="text" ngModel="{{updateTopic?.name}}" name="name" class="form-control" id="name" placeholder="Enter Topic name..." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Topic Description</label>
+                        <input type="text" ngModel="{{updateTopic?.description}}" name="description" class="form-control" id="description" placeholder="Enter Topic description..." required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="update-topic-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button (click)="onupdateTopic(updateForm.value)" data-dismiss="modal" class="btn btn-primary" >Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+```
+
+
+
+
+
+### DELETE Modal for Topic
+
+***topic.component.ts***
+
+```typescript
+public onDeleteTopic(topicId: string): void {
+    this.topicService.deleteTopic(topicId).subscribe(
+        (response: void) => {
+            console.log("Topic Deleted : " + topicId);
+            this.getTopics();
+        },
+        (error: HttpErrorResponse) => { alert(error.message); }
+    );
+}
+```
+
+***topic.component.html***
+
+```html
+<!-- DELETE Item Modal-->
+<div class="modal fade" id="deleteTopicModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Delete Topic</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete topic <strong>{{deleteTopic?.name}}</strong>?</p>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    <button (click)="onDeleteTopic(deleteTopic?.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+```
+
+
+
+
+
