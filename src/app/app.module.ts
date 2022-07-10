@@ -7,12 +7,16 @@ import { AppComponent } from './app.component';
 import { TopicComponent } from './components/topic/topic.component';
 import { ErrorComponent } from './components/error/error.component';
 import { FormsModule } from '@angular/forms';
+import { CourseComponent } from './components/course/course.component';
+import { LessonComponent } from './components/lesson/lesson.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TopicComponent,
-    ErrorComponent
+    ErrorComponent,
+    CourseComponent,
+    LessonComponent
   ],
   imports: [
     BrowserModule,

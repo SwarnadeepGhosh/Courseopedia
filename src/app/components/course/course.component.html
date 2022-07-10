@@ -5,17 +5,17 @@
 
     <div class="row">
         <div class="col-md-8 my-3 text-center">
-            <h2>All Topics / Techs</h2>
+            <h2>All Courses for TopicId : {{topicId | uppercase}}</h2>
         </div>
         <div class="col-md-4 my-3 text-center">
-            <a (click)="onOpenModal(null, 'add')" class="btn mx-2 btn-primary" data-placement="top" data-original-title="Add">Add Topic <i class="fa fa-plus"></i> </a>
+            <a (click)="onOpenModal(null, 'add')" class="btn mx-2 btn-primary" data-placement="top" data-original-title="Add">Add Course <i class="fa fa-plus"></i> </a>
         </div>
     </div>
 
     <div class="row">
-        <div *ngFor="let topic of topics" class="col-md-6 col-xl-3">
+        <div *ngFor="let course of courses" class="col-md-6 col-xl-3">
 
-            <!-- Single Card for one Topic -->
+            <!-- Single Card for one Course -->
             <div class="card m-b-30">
                 <div class="card-body row">
                     <div class="col-6">
@@ -24,24 +24,24 @@
                         </a>
                     </div>
                     <div class="col-6 card-title align-self-center mb-0">
-                        <h5>{{topic?.name}}</h5>
-                        <!-- <p class="m-0">ID : {{topic.id}}</p> -->
+                        <h5>{{course?.name}}</h5>
+                        <!-- <p class="m-0">ID : {{course.id}}</p> -->
                     </div>
                 </div>
                 <ul class="list-group list-group-flush">
                     <!-- <li class="list-group-item"><i class="fa fa-envelope float-right"></i>Email : <a href="#">PaulGoyette@gmail.com</a></li> -->
                     <li class="list-group-item"><i class="fa fa-user float-right"></i>ID :
-                        <strong>{{topic?.id}}</strong>
+                        <strong>{{course?.id}}</strong>
                     </li>
-                    <li class="list-group-item"><i class="fa fa-code float-right"></i>{{topic?.description}}</li>
+                    <li class="list-group-item"><i class="fa fa-code float-right"></i>{{course?.description}}</li>
                 </ul>
                 <div class="card-body">
                     <div class="float-right btn-group btn-group-sm">
-                        <a (click)="onOpenModal(topic, 'update')" class="btn mx-2 btn-primary tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
-                        <a (click)="onOpenModal(topic, 'delete')" class="btn btn-danger tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
+                        <a (click)="onOpenModal(course, 'update')" class="btn mx-2 btn-primary tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+                        <a (click)="onOpenModal(course, 'delete')" class="btn btn-danger tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
                     </div>
                     <ul class="social-links list-inline mb-0">
-                        <button type="button" class="btn btn-outline-success list-inline-item" (click)="navigateToCourses(topic)" >Courses <i class="fa fa-hand-o-right"></i></button>
+                        <button type="button" class="btn btn-outline-success list-inline-item" (click)="navigateToLessons(course)" >Courses <i class="fa fa-hand-o-right"></i></button>
                          <!-- <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Facebook"><i class="fa fa-facebook-f"></i></a></li>
                         <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Twitter"><i class="fa fa-twitter"></i></a></li>
                         <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Skype"><i class="fa fa-skype"></i></a></li> -->
@@ -54,31 +54,31 @@
 
 
     <!-- ADD Item Modal-->
-    <div class="modal fade" id="addTopicModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel"aria-hidden="true">
+    <div class="modal fade" id="addCourseModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel"aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addModalLabel">Add New Topic</h5>
+                    <h5 class="modal-title" id="addModalLabel">Add New Course</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form #addForm="ngForm" (ngSubmit)="onAddTopic(addForm)">
+                    <form #addForm="ngForm" (ngSubmit)="onAddCourse(addForm)">
                         <div class="form-group">
-                            <label for="id">Topic ID</label>
-                            <input type="text" ngModel name="id" class="form-control" id="id" placeholder="Enter Topic ID..." required>
+                            <label for="id">Course ID</label>
+                            <input type="text" ngModel name="id" class="form-control" id="id" placeholder="Enter Course ID..." required>
                         </div>
                         <div class="form-group">
-                            <label for="name">Topic Name</label>
-                            <input type="text" ngModel name="name" class="form-control" id="name" placeholder="Enter Topic name..." required>
+                            <label for="name">Course Name</label>
+                            <input type="text" ngModel name="name" class="form-control" id="name" placeholder="Enter Course name..." required>
                          </div>
                         <div class="form-group">
-                            <label for="description">Topic Description</label>
-                            <input type="text" ngModel name="description" class="form-control" id="description" placeholder="Enter Topic description..." required>
+                            <label for="description">Course Description</label>
+                            <input type="text" ngModel name="description" class="form-control" id="description" placeholder="Enter Course description..." required>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" id="add-topic-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" id="add-course-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">Save changes</button>
                         </div>
                     </form>
@@ -89,11 +89,11 @@
 
 
     <!-- UPDATE Item Modal-->
-    <div class="modal fade" id="updateTopicModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+    <div class="modal fade" id="updateCourseModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="updateModalLabel">Update Topic</h5>
+                    <h5 class="modal-title" id="updateModalLabel">Update Course</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -101,18 +101,18 @@
                 <div class="modal-body">
                     <form #updateForm="ngForm">
                         <!-- Making Id hidden, so that users not able to update the id -->
-                        <input type="hidden" ngModel="{{updateTopic?.id}}" name="id" class="form-control" id="id" placeholder="Enter Topic ID..." required>
+                        <input type="hidden" ngModel="{{updateCourse?.id}}" name="id" class="form-control" id="id" placeholder="Enter Course ID..." required>
                         <div class="form-group">
-                            <label for="name">Topic Name</label>
-                            <input type="text" ngModel="{{updateTopic?.name}}" name="name" class="form-control" id="name" placeholder="Enter Topic name..." required>
+                            <label for="name">Course Name</label>
+                            <input type="text" ngModel="{{updateCourse?.name}}" name="name" class="form-control" id="name" placeholder="Enter Course name..." required>
                          </div>
                         <div class="form-group">
-                            <label for="description">Topic Description</label>
-                            <input type="text" ngModel="{{updateTopic?.description}}" name="description" class="form-control" id="description" placeholder="Enter Topic description..." required>
+                            <label for="description">Course Description</label>
+                            <input type="text" ngModel="{{updateCourse?.description}}" name="description" class="form-control" id="description" placeholder="Enter Course description..." required>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" id="update-topic-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button (click)="onupdateTopic(updateForm.value)" data-dismiss="modal" class="btn btn-primary" >Save changes</button>
+                            <button type="button" id="update-course-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button (click)="onupdateCourse(updateForm.value)" data-dismiss="modal" class="btn btn-primary" >Save changes</button>
                         </div>
                     </form>
                 </div>
@@ -122,21 +122,21 @@
 
 
     <!-- DELETE Item Modal-->
-    <div class="modal fade" id="deleteTopicModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+    <div class="modal fade" id="deleteCourseModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="deleteModalLabel">Delete Topic</h5>
+                    <h5 class="modal-title" id="deleteModalLabel">Delete Course</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>Are you sure you want to delete topic <strong>{{deleteTopic?.name}}</strong>?</p>
+                    <p>Are you sure you want to delete course <strong>{{deleteCourse?.name}}</strong>?</p>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                        <button (click)="onDeleteTopic(deleteTopic?.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+                        <button (click)="onDeleteCourse(deleteCourse?.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
                     </div>
                 </div>
             </div>
@@ -146,9 +146,9 @@
 
 
     <!-- Notification for NO item -->
-    <div *ngIf="topics?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+    <div *ngIf="courses?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
         <div class="alert alert-info" role="alert">
-            <h4 class="alert-heading">Maybe there are NO TOPICS !!</h4>
+            <h4 class="alert-heading">Maybe NO COURSES for Topic id : {{topicId | uppercase}} !!</h4>
             <p>Or Please allow 10 seconds time to start the Backend Server.</p>
         </div>
     </div>

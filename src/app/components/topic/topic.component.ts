@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Topic } from 'src/app/models/Topic';
 import { TopicService } from 'src/app/services/topic.service';
 
@@ -14,7 +15,7 @@ export class TopicComponent implements OnInit {
   public updateTopic: Topic;
   public deleteTopic: Topic;
 
-  constructor(private topicService: TopicService) {}
+  constructor(private topicService: TopicService, private router: Router, private route : ActivatedRoute) {}
 
   ngOnInit(): void {
     this.getTopics();
@@ -114,6 +115,11 @@ export class TopicComponent implements OnInit {
     if (results.length === 0 || !key) {
       this.getTopics();
     }
+  }
+
+  navigateToCourses(topic: Topic){
+    // this.router.navigate(['/topics', topic.id, 'courses']); // Absolute Routing
+   this.router.navigate([topic.id, 'courses'], {relativeTo: this.route}); //Relative Routing
   }
 
 }
