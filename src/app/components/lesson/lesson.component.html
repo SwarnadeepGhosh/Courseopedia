@@ -1,1 +1,155 @@
-<p>lesson works!</p>
+<!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"> -->
+
+
+<div class="container" id="main-container">
+
+    <div class="row">
+        <div class="col-md-8 my-3 text-center">
+            <h2>All Lessons for CourseId : {{courseId | uppercase}}</h2>
+        </div>
+        <div class="col-md-4 my-3 text-center">
+            <a (click)="onOpenModal(null, 'add')" class="btn mx-2 btn-primary" data-placement="top" data-original-title="Add">Add Lesson <i class="fa fa-plus"></i> </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div *ngFor="let lesson of lessons" class="col-md-6 col-xl-3">
+
+            <!-- Single Card for one Lesson -->
+            <div class="card m-b-30">
+                <div class="card-body row">
+                    <div class="col-6">
+                        <a href="">
+                            <img src="https://springframework.guru/wp-content/uploads/2015/02/spring-framework-project-logo.png" alt="" class="img-fluid rounded-circle w-60">
+                        </a>
+                    </div>
+                    <div class="col-6 card-title align-self-center mb-0">
+                        <h5>{{lesson?.name}}</h5>
+                        <!-- <p class="m-0">ID : {{lesson.id}}</p> -->
+                    </div>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <!-- <li class="list-group-item"><i class="fa fa-envelope float-right"></i>Email : <a href="#">PaulGoyette@gmail.com</a></li> -->
+                    <li class="list-group-item"><i class="fa fa-user float-right"></i>ID :
+                        <strong>{{lesson?.id}}</strong>
+                    </li>
+                    <li class="list-group-item"><i class="fa fa-code float-right"></i>{{lesson?.description}}</li>
+                </ul>
+                <div class="card-body">
+                    <div class="float-right btn-group btn-group-sm">
+                        <a (click)="onOpenModal(lesson, 'update')" class="btn mx-2 btn-primary tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+                        <a (click)="onOpenModal(lesson, 'delete')" class="btn btn-danger tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
+                    </div>
+                    <!-- <ul class="social-links list-inline mb-0">
+                        <button type="button" class="btn btn-outline-success list-inline-item" (click)="navigateToLessons(lesson)" >Lessons <i class="fa fa-hand-o-right"></i></button>
+                         <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Facebook"><i class="fa fa-facebook-f"></i></a></li>
+                        <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Twitter"><i class="fa fa-twitter"></i></a></li>
+                        <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Skype"><i class="fa fa-skype"></i></a></li>
+                    </ul> -->
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- ADD Item Modal-->
+    <div class="modal fade" id="addLessonModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel"aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addModalLabel">Add New Lesson</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form #addForm="ngForm" (ngSubmit)="onAddLesson(addForm)">
+                        <div class="form-group">
+                            <label for="id">Lesson ID</label>
+                            <input type="text" ngModel name="id" class="form-control" id="id" placeholder="Enter Lesson ID..." required>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Lesson Name</label>
+                            <input type="text" ngModel name="name" class="form-control" id="name" placeholder="Enter Lesson name..." required>
+                         </div>
+                        <div class="form-group">
+                            <label for="description">Lesson Description</label>
+                            <input type="text" ngModel name="description" class="form-control" id="description" placeholder="Enter Lesson description..." required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="add-lesson-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- UPDATE Item Modal-->
+    <div class="modal fade" id="updateLessonModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updateModalLabel">Update Lesson</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form #updateForm="ngForm">
+                        <!-- Making Id hidden, so that users not able to update the id -->
+                        <input type="hidden" ngModel="{{updateLesson?.id}}" name="id" class="form-control" id="id" placeholder="Enter Lesson ID..." required>
+                        <div class="form-group">
+                            <label for="name">Lesson Name</label>
+                            <input type="text" ngModel="{{updateLesson?.name}}" name="name" class="form-control" id="name" placeholder="Enter Lesson name..." required>
+                         </div>
+                        <div class="form-group">
+                            <label for="description">Lesson Description</label>
+                            <input type="text" ngModel="{{updateLesson?.description}}" name="description" class="form-control" id="description" placeholder="Enter Lesson description..." required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="update-lesson-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button (click)="onupdateLesson(updateForm.value)" data-dismiss="modal" class="btn btn-primary" >Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- DELETE Item Modal-->
+    <div class="modal fade" id="deleteLessonModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Delete Lesson</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete lesson <strong>{{deleteLesson?.name}}</strong>?</p>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                        <button (click)="onDeleteLesson(deleteLesson?.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Notification for NO item -->
+    <div *ngIf="lessons?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+        <div class="alert alert-info" role="alert">
+            <h4 class="alert-heading">Maybe NO LESSONS for CourseId={{courseId | uppercase}} and TopicId={{topicId | uppercase}} !!</h4>
+            <p>Or Please allow 10 seconds time to start the Backend Server.</p>
+        </div>
+    </div>
+</div>
