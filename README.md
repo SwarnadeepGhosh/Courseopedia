@@ -2,6 +2,9 @@
 
 [Live Link](https://courseapi.vercel.app/)
 
+### Demo Recording
+
+![courseapi-video](./media/courseapi-video.gif)
 
 
 ### Backend Intro
@@ -77,15 +80,6 @@ Here we have 3 Controllers
 
 - Hosting in [Vercel](https://vercel.com)
 
-
-
-### Snapshots
-
-![courseapi-video](E:\My-Projects\CourseAPI-fullstack\CourseApi-UI\media\courseapi-video.gif)
-
-
-
-<video src="E:\My-Projects\CourseAPI-fullstack\CourseApi-UI\media\courseapi-video.mp4"></video>
 
 ### Auto Generated Documentation
 
