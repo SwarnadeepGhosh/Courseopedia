@@ -8,3 +8,6 @@
 .footer-container{
     padding: 8px;
 }
+.footer-container ul {
+    list-style: none;
+}
