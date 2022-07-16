@@ -1,4 +1,4 @@
-# CourseApi Fullstack Application
+# Courseopedia Fullstack Application
 
 [Live Link](https://courseapi.vercel.app/)
 
@@ -9,9 +9,9 @@
 
 ### Backend Intro
 
-Here I have designed a production grade CourseAPI complete CRUD backend using Spring Boot, JPA, my own PostgreSQL Database instance and hosted it on Heroku.
+Here I have designed a production grade Courseopedia complete CRUD backend using Spring Boot, JPA, my own PostgreSQL Database instance and hosted it on Heroku.
 
-Backend Code : https://github.com/SwarnadeepGhosh/CourseApi-UI
+Backend Code : https://github.com/SwarnadeepGhosh/Courseopedia
 
 ### FrontEnd Intro
 

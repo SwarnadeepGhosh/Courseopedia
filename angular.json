@@ -6,7 +6,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "CourseApi-UI": {
+    "Courseopedia": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/course-api-ui",
+            "outputPath": "dist/courseopedia",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -75,10 +75,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "CourseApi-UI:build:production"
+              "browserTarget": "Courseopedia:build:production"
             },
             "development": {
-              "browserTarget": "CourseApi-UI:build:development"
+              "browserTarget": "Courseopedia:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -86,7 +86,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "CourseApi-UI:build"
+            "browserTarget": "Courseopedia:build"
           }
         },
         "test": {
@@ -109,5 +109,5 @@
       }
     }
   },
-  "defaultProject": "CourseApi-UI"
+  "defaultProject": "Courseopedia"
 }
