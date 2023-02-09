@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  apiServerUrl : 'http://localhost:8080' // baseUrl is the URL for backend
-  // apiServerUrl : 'https://courseapi-backend.up.railway.app' // apiServerUrl is the URL for backend
+  // apiServerUrl : 'http://localhost:8080' // baseUrl is the URL for backend
+  apiServerUrl : 'https://courseapi-backend.up.railway.app' // apiServerUrl is the URL for backend
 };
 
 /*

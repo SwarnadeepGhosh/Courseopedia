@@ -1,0 +1,10 @@
+{
+    "/": {
+        "target": "https://courseapi-backend.up.railway.app",
+        "secure": true,
+        "pathRewrite": {
+            "^/": ""
+        },
+        "changeOrigin": true
+    }
+}
