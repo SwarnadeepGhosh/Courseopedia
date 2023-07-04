@@ -1,6 +1,15 @@
 # Courseopedia Fullstack Application
 
-[Live Link](https://courseapi.vercel.app/)
+Here I have designed a fullstack application for CourseAPI using Angular and hosted it on Vercel. For backend, I have designed a production grade Courseopedia complete CRUD backend using Spring Boot, JPA, my own PostgreSQL Database instance and hosted it on Azure.
+
+**[Live Link](https://courseapi.vercel.app)** 
+
+**[Backend url - Deployed on Azure](https://courseapi-backend.azurewebsites.net/)** 
+
+![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white) ![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white) ![Angular](https://img.shields.io/badge/angular-%23DD0031.svg?style=for-the-badge&logo=angular&logoColor=white)![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white) ![CockroachLabs](https://img.shields.io/badge/Cockroach%20Labs-6933FF?style=for-the-badge&logo=Cockroach%20Labs&logoColor=white) ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white) ![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white) ![Heroku](https://img.shields.io/badge/heroku-%23430098.svg?style=for-the-badge&logo=heroku&logoColor=white) ![Bootstrap](https://img.shields.io/badge/bootstrap-%23563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
+
+<img src="https://cdn-icons-png.flaticon.com/512/4413/4413569.png" alt="release1.0" style="zoom:40%;" />
+
 
 ### Demo Recording
 
@@ -9,16 +18,11 @@
 
 ### Backend Intro
 
-Here I have designed a production grade Courseopedia complete CRUD backend using Spring Boot, JPA, my own PostgreSQL Database instance and hosted it on Heroku.
-
 Backend Code : https://github.com/SwarnadeepGhosh/Courseopedia
 
 ### FrontEnd Intro
 
-Here I have designed a Frontend application for CourseAPI Backend using Angular and hosted it on Vercel.
-
 Frontend Code : https://github.com/SwarnadeepGhosh/CourseAPI-Spring-Starter
-
 
 
 ## Features of UI
